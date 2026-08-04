@@ -90,7 +90,7 @@ google_analytics: ''
 favicon: /favicon.ico
 
 # 你的头像url
-avatar: /img/blog.jpg
+avatar: /img/blog.png
 
 # 是否开启分享
 share_jia: true
@@ -193,7 +193,7 @@ apple_touch_icon: '/apple-touch-icon-180x180.png'
 # Tab Title Change | 标签页标题切换
 tab_title_change:
   enable: true
-  left_tab_title: '(つェ⊂) 我藏好了哦~ '
+  left_tab_title: 'Qchihun的博客'
   return_tab_title: '(*´∇｀*) 被你发现啦~ '
 
 # https://github.com/willin/hexo-wordcount

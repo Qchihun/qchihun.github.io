@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+# ⚠️ 关键修改 1：显式赋予 Actions 写入仓库内容的权限
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -13,24 +17,23 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
         
-      # ⚠️ 关键修改：我们不强制指定版本，让 GitHub 自动选一个它能用的版本
       - name: 设置 Node.js
         uses: actions/setup-node@v4
         
       - name: 安装依赖
         run: npm install
         
-      # ⚠️ 绝招：在跑 Hexo 之前，先强行覆盖掉导致报错的那个插件
-      - name: 暴力修复环境并生成
+      - name: 修复 ESM 报错并生成
         run: |
           npm install strip-ansi@6.0.1 --save
           npx hexo clean
           npx hexo generate
         
+      # ⚠️ 关键修改 2：把 ${{ secrets.GITHUB_TOKEN }} 换成 ${{ github.token }}
       - name: 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ github.token }}
           publish_dir: ./public
           publish_branch: gh-pages
           force_orphan: true

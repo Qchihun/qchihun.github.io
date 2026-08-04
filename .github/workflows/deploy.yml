@@ -13,19 +13,18 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
         
-      # ⚠️ 重点修改：即使你本地是 v24，云端也固定降级到 v16，确保 Hexo 能跑
+      # ⚠️ 关键修改：我们不强制指定版本，让 GitHub 自动选一个它能用的版本
       - name: 设置 Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: '16.x' 
-          
+        
       - name: 安装依赖
         run: npm install
         
-      # ⚠️ 加一步：强制升级个关键渲染插件，避免报错
-      - name: 准备环境并生成
+      # ⚠️ 绝招：在跑 Hexo 之前，先强行覆盖掉导致报错的那个插件
+      - name: 暴力修复环境并生成
         run: |
-          npm install hexo-renderer-marked@6.0.0 --save
+          npm install strip-ansi@6.0.1 --save
+          npx hexo clean
           npx hexo generate
         
       - name: 部署到 GitHub Pages

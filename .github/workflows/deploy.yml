@@ -5,14 +5,12 @@ on:
     branches:
       - main
 
-# ⚠️ 关键修改 1：显式赋予 Actions 写入仓库内容的权限
 permissions:
   contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
@@ -23,13 +21,12 @@ jobs:
       - name: 安装依赖
         run: npm install
         
-      - name: 修复 ESM 报错并生成
+      - name: 强力修复插件冲突并生成页面
         run: |
-          npm install strip-ansi@6.0.1 --save
+          npm uninstall hexo-generator-json-content
           npx hexo clean
           npx hexo generate
         
-      # ⚠️ 关键修改 2：把 ${{ secrets.GITHUB_TOKEN }} 换成 ${{ github.token }}
       - name: 部署到 GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

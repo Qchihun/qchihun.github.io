@@ -1,0 +1,32 @@
+name: Deploy Hexo Blog
+
+on:
+  push:
+    branches:
+      - main  # 你的仓库默认分支是 main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: 安装依赖
+        run: npm install
+        
+      - name: 生成静态文件
+        run: npx hexo generate
+        
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: main  # 直接部署到 main 分支

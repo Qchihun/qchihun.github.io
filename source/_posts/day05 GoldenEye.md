@@ -6,5 +6,5 @@ tags:
 categories: 随笔
 ---
 
-<iframe src="/pdf/day05 GoldenEye" width="100%" height="600px"></iframe>
+<iframe src="/pdf/day05 GoldenEye.pdf" width="100%" height="600px"></iframe>
 

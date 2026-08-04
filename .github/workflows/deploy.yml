@@ -3,7 +3,7 @@ name: Deploy Hexo Blog
 on:
   push:
     branches:
-      - main  # 你的仓库默认分支是 main
+      - main  # 这里监听的是你的源码分支。根据你之前的截图，你的源码在 main 分支上。
 
 jobs:
   build-and-deploy:
@@ -29,4 +29,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: main  # 直接部署到 main 分支
+          publish_branch: master  # ⚠️ 这里改成了你想要部署到的 master 分支
+          force_orphan: true      # 强制覆盖 master，只放生成的网页文件

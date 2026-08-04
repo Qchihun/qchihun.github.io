@@ -1,7 +1,8 @@
 ---
 title: 你的文章标题
 date: 2026-08-04 07:00:00
-tags: 生活
+tags: 
+  - 生活
 categories: 随笔
 ---
 
